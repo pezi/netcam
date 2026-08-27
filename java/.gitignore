@@ -1,0 +1,20 @@
+# Maven / Gradle build output
+target/
+build/
+!src/**/build/
+.gradle/
+
+# Compiled classes and archives
+*.class
+*.jar
+*.war
+*.ear
+!gradle/wrapper/gradle-wrapper.jar
+
+# Tooling
+.mvn/timing.properties
+.classpath
+.project
+.settings/
+hs_err_pid*
+replay_pid*

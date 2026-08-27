@@ -1,0 +1,28 @@
+{
+  "name": "camera-control-client",
+  "version": "0.1.0",
+  "description": "Verified-TLS Node.js client and CLI for the Camera Control WebSocket API",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.17"
+  },
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "bin": {
+    "camera-control": "bin/camera-control.js"
+  },
+  "files": [
+    "src",
+    "bin",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test \"test/**/*.test.js\""
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

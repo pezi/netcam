@@ -1,0 +1,20 @@
+# Compiled binaries and plugins
+camera-control
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test and profiling output
+*.test
+*.out
+coverage.txt
+coverage.html
+
+# Go workspace and tooling caches
+go.work
+go.work.sum
+vendor/
+bin/
+dist/

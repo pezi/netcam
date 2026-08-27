@@ -1,0 +1,31 @@
+[package]
+name = "camera-control-client"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+description = "Verified-TLS Rust client and CLI for the Camera Control WebSocket API"
+license = "MIT"
+
+[lib]
+name = "camera_control"
+path = "src/lib.rs"
+
+[[bin]]
+name = "camera-control"
+path = "src/bin/camera_control.rs"
+
+[dependencies]
+base64 = "0.23"
+clap = { version = "4.5.61", features = ["derive"] }
+futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
+rustls-pemfile = "2"
+serde_json = "1"
+tokio = { version = "1", features = ["fs", "io-std", "macros", "net", "rt-multi-thread", "signal", "time"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "tls12"] }
+# "__rustls-tls" is the crate's own switch for the rustls Connector; the
+# public feature aliases all bundle a root store this client must not trust.
+tokio-tungstenite = { version = "0.30", default-features = false, features = ["connect", "handshake", "__rustls-tls"] }
+uuid = { version = "1", features = ["v4"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["macros", "rt", "sync", "time"] }

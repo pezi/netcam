@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "camera-control-client"
+version = "0.1.0"
+description = "Verified-TLS Python client and CLI for the Camera Control WebSocket API"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["websockets>=15.0,<18.0"]
+
+[project.scripts]
+camera-control = "camera_control.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

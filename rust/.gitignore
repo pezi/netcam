@@ -1,0 +1,11 @@
+# Build output
+/target/
+**/*.rs.bk
+
+# Binary and coverage artefacts
+*.pdb
+*.profraw
+*.profdata
+
+# A library keeps Cargo.lock out of the tree; this crate also ships a binary,
+# so the lock file is committed for reproducible CLI builds.
