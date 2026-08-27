@@ -1,5 +1,5 @@
 # Compiled binaries and plugins
-camera-control
+/camera-control
 *.exe
 *.exe~
 *.dll

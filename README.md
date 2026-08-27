@@ -138,7 +138,7 @@ cd python && PYTHONPATH=src python3 -m unittest discover -s tests
 cd go     && go vet ./... && go test ./...
 cd rust   && cargo test && cargo clippy --all-targets
 cd java   && mvn test
-cd node   && npm install && npm test
+cd nodejs   && npm install && npm test
 cd dart   && dart pub get && dart analyze && dart test
 ```
 
