@@ -1,4 +1,6 @@
-# Camera Control Clients
+# Camera Control Clients for NetCam
+
+![NetCam](images/netcam.webp "NetCam")
 
 Client libraries and command-line tools for the **Camera Control** phone app's
 JSON WebSocket API, in six languages. Every port speaks protocol version 4 over
