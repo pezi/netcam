@@ -3,7 +3,7 @@
 
 ## App Stores
 
-[Apple App Store](https://apps.apple.com/us/app/diashowdl/id66804472296)
+[Apple App Store](https://apps.apple.com/us/app/netcam-camera-control/id6804472296)
 
 ![NetCam](images/netcam.webp "NetCam")
 
