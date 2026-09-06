@@ -1,20 +1,19 @@
 # Camera Control Clients for NetCam
 
-
-## App Stores
-
-[Apple App Store](https://apps.apple.com/us/app/netcam-camera-control/id6804472296), 
-[Google Play Store](https://play.google.com/store/apps/details?id=app.flutterdev.cameracontrol)
-
 ![NetCam](images/netcam.webp "NetCam")
 
-Client libraries and command-line tools for the **Camera Control** phone app's
+Client libraries and command-line tools for the **NetCam** phone app's
 JSON WebSocket API, in six languages. Every port speaks protocol version 4 over
 verified TLS, and every one exposes the same three commands — read status,
 capture one photo, run a time lapse — with the same flags and the same
 reconnect behavior.
 
 The protocol itself is documented in **[api.md](api.md)**.
+
+## App Stores
+
+[Apple App Store](https://apps.apple.com/us/app/netcam-camera-control/id6804472296), 
+[Google Play Store](https://play.google.com/store/apps/details?id=app.flutterdev.cameracontrol)
 
 ## Ports
 
