@@ -3,7 +3,8 @@
 
 ## App Stores
 
-[Apple App Store](https://apps.apple.com/us/app/netcam-camera-control/id6804472296)
+[Apple App Store](https://apps.apple.com/us/app/netcam-camera-control/id6804472296), 
+[Google Play Store](https://play.google.com/store/apps/details?id=app.flutterdev.cameracontrol)
 
 ![NetCam](images/netcam.webp "NetCam")
 
