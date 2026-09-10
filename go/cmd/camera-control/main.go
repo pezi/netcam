@@ -36,6 +36,7 @@ type captureFlags struct {
 	resolution  string
 	flash       string
 	jpegQuality int
+	rotation    string
 }
 
 func main() {
@@ -172,6 +173,7 @@ func addCaptureFlags(flags *flag.FlagSet, capture *captureFlags) {
 		"one of "+strings.Join(resolutions, ", "))
 	flags.StringVar(&capture.flash, "flash", "off", "one of "+strings.Join(flashModes, ", "))
 	flags.IntVar(&capture.jpegQuality, "jpeg-quality", 0, "JPEG quality between 1 and 100")
+	flags.StringVar(&capture.rotation, "rotation", "", "clockwise image rotation: 0, 90, 180, 270; omitted keeps the current setting")
 }
 
 func runStatus(ctx context.Context, client *cameracontrol.Client, compact bool) error {
@@ -338,13 +340,28 @@ func validateChoice(name, value string, allowed []string) error {
 }
 
 func controlsFrom(capture captureFlags) (cameracontrol.Object, error) {
-	if capture.jpegQuality == 0 {
-		return cameracontrol.Object{}, nil
+	controls := cameracontrol.Object{}
+	if capture.jpegQuality != 0 {
+		if capture.jpegQuality < 1 || capture.jpegQuality > 100 {
+			return nil, errors.New("--jpeg-quality must be between 1 and 100")
+		}
+		controls["jpegQuality"] = capture.jpegQuality
 	}
-	if capture.jpegQuality < 1 || capture.jpegQuality > 100 {
-		return nil, errors.New("--jpeg-quality must be between 1 and 100")
+	if capture.rotation != "" {
+		switch capture.rotation {
+		case "0":
+			controls["rotation"] = 0
+		case "90":
+			controls["rotation"] = 90
+		case "180":
+			controls["rotation"] = 180
+		case "270":
+			controls["rotation"] = 270
+		default:
+			return nil, errors.New("--rotation must be 0, 90, 180 or 270")
+		}
 	}
-	return cameracontrol.Object{"jpegQuality": capture.jpegQuality}, nil
+	return controls, nil
 }
 
 func printJSON(value any, compact bool) error {

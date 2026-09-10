@@ -41,6 +41,7 @@ public final class CommandLine {
         --resolution NAME         low, medium, high, veryHigh, ultraHigh, max (default: high)
         --flash MODE              off, auto, always, torch (default: off)
         --jpeg-quality N          1-100
+        --rotation N              clockwise: 0, 90, 180, 270; omitted keeps the current setting
 
       capture options:
         --output FILE             JPEG output path (default: photo.jpg)
@@ -215,6 +216,13 @@ public final class CommandLine {
         throw new IllegalArgumentException("--jpeg-quality must be between 1 and 100");
       }
       controls.put("jpegQuality", quality);
+    }
+    if (parsed.has("rotation")) {
+      String rotation = parsed.text("rotation", "");
+      if (!List.of("0", "90", "180", "270").contains(rotation)) {
+        throw new IllegalArgumentException("--rotation must be 0, 90, 180 or 270");
+      }
+      controls.put("rotation", Integer.parseInt(rotation));
     }
     String resolution = parsed.text("resolution", "high");
     if (!RESOLUTIONS.contains(resolution)) {

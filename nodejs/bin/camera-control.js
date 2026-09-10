@@ -33,6 +33,7 @@ const CAPTURE_OPTIONS = {
   resolution: { type: 'string', default: 'high' },
   flash: { type: 'string', default: 'off' },
   'jpeg-quality': { type: 'string' },
+  rotation: { type: 'string' },
 };
 
 const COMMANDS = {
@@ -74,6 +75,7 @@ capture options (capture, time-lapse):
   --resolution NAME         ${RESOLUTIONS.join(', ')} (default: high)
   --flash MODE              ${FLASH_MODES.join(', ')} (default: off)
   --jpeg-quality N          1-100
+  --rotation N              clockwise: 0, 90, 180, 270; omitted keeps the current setting
 
 capture options:
   --output FILE             JPEG output path (default: photo.jpg)
@@ -220,10 +222,17 @@ async function runTimeLapse(client, values, controls) {
 
 function buildControls(values) {
   const quality = values['jpeg-quality'];
-  if (quality === undefined) return {};
-  const parsed = integer(quality, '--jpeg-quality');
-  if (parsed < 1 || parsed > 100) throw new Error('--jpeg-quality must be between 1 and 100');
-  return { jpegQuality: parsed };
+  const controls = {};
+  if (quality !== undefined) {
+    const parsed = integer(quality, '--jpeg-quality');
+    if (parsed < 1 || parsed > 100) throw new Error('--jpeg-quality must be between 1 and 100');
+    controls.jpegQuality = parsed;
+  }
+  if (values.rotation !== undefined) {
+    requireChoice('--rotation', values.rotation, ['0', '90', '180', '270']);
+    controls.rotation = Number(values.rotation);
+  }
+  return controls;
 }
 
 function requireChoice(name, value, allowed) {

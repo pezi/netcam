@@ -47,8 +47,14 @@ java -jar target/camera-control-client-0.1.0.jar \
   capture wss://192.168.1.50:8080/ws \
   --ca camera-control-local-ca.crt \
   --camera 1 --resolution high --flash off \
-  --jpeg-quality 90 --output photo.jpg
+  --jpeg-quality 90 --rotation 90 --output photo.jpg
 ```
+
+Rotation accepts `0`, `90`, `180`, or `270` clockwise degrees. Omit the flag
+to keep the current app setting; use `--rotation 0` to reset it. The app starts
+at 0°. Rotation applies to new photos and live previews; existing gallery
+photos keep their orientation. Library callers pass `"rotation": 90` in the
+existing controls map. Check `status.capabilities.rotation` for support.
 
 Start a 5-second time lapse, stopping after 20 photos:
 

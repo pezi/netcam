@@ -101,6 +101,7 @@ camera-control <command> <wss-url> [options]
 | `--resolution NAME` | `capture`, `time-lapse` | `high` |
 | `--flash MODE` | `capture`, `time-lapse` | `off` |
 | `--jpeg-quality N` | `capture`, `time-lapse` | unset |
+| `--rotation N` | `capture`, `time-lapse` | current app setting |
 | `--output FILE` | `capture` | `photo.jpg` |
 | `--request-id ID` | `capture` | generated |
 | `--interval SECONDS` | `time-lapse` | required |
@@ -111,6 +112,12 @@ camera-control <command> <wss-url> [options]
 Resolutions are `low`, `medium`, `high`, `veryHigh`, `ultraHigh`, and `max`.
 Flash modes are `off`, `auto`, `always`, and `torch`. The Go CLI accepts both
 `-flag` and `--flag`; the others take `--flag`.
+
+Rotation accepts `0`, `90`, `180`, or `270` clockwise degrees. Omit the flag
+to keep the current app setting; use `--rotation 0` to reset it. The app starts
+at 0°. Rotation applies to new photos and live previews; existing gallery
+photos keep their orientation. Library callers pass `"rotation": 90` in the
+existing controls map. Check `status.capabilities.rotation` for support.
 
 ## What every port guarantees
 

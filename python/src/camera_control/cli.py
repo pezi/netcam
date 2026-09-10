@@ -83,6 +83,10 @@ def _add_capture_options(parser: argparse.ArgumentParser) -> None:
     parser.add_argument("--resolution", choices=RESOLUTIONS, default="high")
     parser.add_argument("--flash", choices=FLASH_MODES, default="off")
     parser.add_argument("--jpeg-quality", type=int)
+    parser.add_argument(
+        "--rotation", type=int, choices=(0, 90, 180, 270),
+        help="Clockwise image rotation in degrees; omitted keeps the current setting.",
+    )
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -196,8 +200,12 @@ def _time_lapse(
 
 def _controls(args: argparse.Namespace) -> dict[str, Any]:
     quality = getattr(args, "jpeg_quality", None)
-    if quality is None:
-        return {}
-    if not 1 <= quality <= 100:
-        raise ValueError("--jpeg-quality must be between 1 and 100")
-    return {"jpegQuality": quality}
+    controls: dict[str, Any] = {}
+    if quality is not None:
+        if not 1 <= quality <= 100:
+            raise ValueError("--jpeg-quality must be between 1 and 100")
+        controls["jpegQuality"] = quality
+    rotation = getattr(args, "rotation", None)
+    if rotation is not None:
+        controls["rotation"] = rotation
+    return controls

@@ -72,6 +72,35 @@ Every client:
 The result includes `ready`, `busy`, `cameras`, `resolutions`, `capabilities`,
 `controls`, `device`, `reliability`, and `captureSession`.
 
+### Image rotation
+
+Set clockwise rotation through `configure`, `captureJob`, or
+`startCaptureSession` using the existing controls object:
+
+```json
+{"id":"rotation-1","action":"configure","controls":{"rotation":90}}
+```
+
+`rotation` must be the integer `0`, `90`, `180`, or `270`; other values,
+including null, strings and fractional numbers, return `invalid_control`.
+Status reports `controls.rotation` and
+`capabilities.rotation = {"supported":true,"values":[0,90,180,270]}`.
+Older servers without that capability do not support the control.
+
+The app starts at 0°. Omission keeps the current setting; 0 resets it.
+Rotation is shared with the phone and browser UI and survives camera switches
+and server restarts within the running app, but is not saved across app launches.
+It is applied clockwise after the camera's EXIF/device orientation to new
+photos and live preview. JPEG pixels are rotated, with width and height
+swapped at 90°/270°. Existing gallery images are unchanged. At JPEG quality 100,
+native bytes are preserved only at rotation 0; a rotated photo is re-encoded
+at the selected quality. Focus/exposure points still use the unrotated camera
+coordinates. For legacy `capture`, configure rotation first.
+
+The browser REST API accepts the same flat control via
+`POST /api/controls` with `{"rotation":90}` and returns it in
+`GET /api/status`. Crops operate on the resulting rotated photo.
+
 ### Idempotent capture
 
 ```json
@@ -82,7 +111,7 @@ The result includes `ready`, `busy`, `cameras`, `resolutions`, `capabilities`,
   "camera":1,
   "resolution":"high",
   "flash":"off",
-  "controls":{"jpegQuality":90}
+  "controls":{"jpegQuality":90,"rotation":90}
 }
 ```
 

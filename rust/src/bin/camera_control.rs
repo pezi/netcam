@@ -96,6 +96,9 @@ struct CaptureArgs {
     /// JPEG quality between 1 and 100.
     #[arg(long = "jpeg-quality", value_parser = clap::value_parser!(i64).range(1..=100))]
     jpeg_quality: Option<i64>,
+    /// Clockwise image rotation; omitted keeps the current setting.
+    #[arg(long, value_parser = ["0", "90", "180", "270"])]
+    rotation: Option<String>,
 }
 
 #[derive(Clone, Copy, ValueEnum)]
@@ -123,6 +126,12 @@ impl CaptureArgs {
         let mut controls = Map::new();
         if let Some(quality) = self.jpeg_quality {
             controls.insert("jpegQuality".into(), Value::from(quality));
+        }
+        if let Some(rotation) = &self.rotation {
+            controls.insert(
+                "rotation".into(),
+                Value::from(rotation.parse::<i64>().expect("validated rotation")),
+            );
         }
         CaptureOptions {
             camera: self.camera,
