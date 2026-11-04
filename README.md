@@ -2,7 +2,7 @@
 
 ![NetCam](images/netcam.webp "NetCam")
 
-Client libraries and command-line tools for the **NetCam** phone app's
+Client libraries and command-line tools for the **Camera Control** phone app's
 JSON WebSocket API, in six languages. Every port speaks protocol version 4 over
 verified TLS, and every one exposes the same three commands — read status,
 capture one photo, run a time lapse — with the same flags and the same
@@ -10,10 +10,11 @@ reconnect behavior.
 
 The protocol itself is documented in **[api.md](api.md)**.
 
-## App Stores
-
-[Apple App Store](https://apps.apple.com/us/app/netcam-camera-control/id6804472296), 
-[Google Play Store](https://play.google.com/store/apps/details?id=app.flutterdev.cameracontrol)
+Besides the WebSocket API, NetCam's **Tripod Mode** offers three login-free
+`GET` links, `/photo`, `/next` and `/delete`, for a phone fixed in a holder.
+They answer JSON to scripts and microcontrollers and need nothing but an HTTP
+client; see **[tripod/](tripod/README.md)** for the routes, `curl` examples
+and a Python example program.
 
 ## Ports
 
@@ -23,7 +24,7 @@ The protocol itself is documented in **[api.md](api.md)**.
 | Go | [`go/`](go/README.md) | `cameracontrol.Client` | `github.com/coder/websocket` | 1 |
 | Rust | [`rust/`](rust/README.md) | `camera_control::Client` | `tokio-tungstenite` + rustls | tokio stack |
 | Java | [`java/`](java/README.md) | `app.flutterdev.cameracontrol.CameraControlClient` | `java.net.http.WebSocket` | none |
-| Node.js | [`nodejs/`](node/README.md) | `CameraControlClient` | `ws` | 1 |
+| Node.js | [`nodejs/`](nodejs/README.md) | `CameraControlClient` | `ws` | 1 |
 | Dart | [`dart/`](dart/README.md) | `CameraControlClient` | `dart:io` `WebSocket` | 1 (CLI only) |
 
 The Java port bundles its own JSON reader, so the built JAR has no runtime
@@ -155,6 +156,9 @@ cd java   && mvn test
 cd nodejs   && npm install && npm test
 cd dart   && dart pub get && dart analyze && dart test
 ```
+
+The Tripod Mode example in `tripod/python/` is a single script with a
+`requirements.txt`; it is exercised by hand against a running phone.
 
 Ignore rules are split: the root `.gitignore` holds shared entries (editors, OS
 files, secrets, certificates, and captured photos), and each port directory

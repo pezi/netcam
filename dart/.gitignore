@@ -1,0 +1,17 @@
+# Dart / Flutter tooling
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Compiled output
+*.dill
+*.snapshot
+*.jit
+*.aot
+doc/api/
+
+# An application-style package commits pubspec.lock; a library would not.
