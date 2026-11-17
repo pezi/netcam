@@ -2,6 +2,9 @@
 
 ![NetCam](images/netcam.webp "NetCam")
 
+[![Get it on Google Play](https://img.shields.io/badge/Google_Play-Download-01875F?style=flat&logo=google-play&logoColor=white)](https://play.google.com/store/apps/details?id=app.flutterdev.cameracontrol)
+[![Get it on the App Store](https://img.shields.io/badge/App_Store-Download-0D96F6?style=flat&logo=app-store&logoColor=white)](https://apps.apple.com/us/app/netcam-camera-control/id6804472296)
+
 Client libraries and command-line tools for the **Camera Control** phone app's
 JSON WebSocket API, in six languages. Every port speaks protocol version 4 over
 verified TLS, and every one exposes the same three commands — read status,
